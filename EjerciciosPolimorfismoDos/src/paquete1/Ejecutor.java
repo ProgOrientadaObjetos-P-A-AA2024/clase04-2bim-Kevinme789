@@ -40,10 +40,13 @@ public class Ejecutor {
         arriendoSesiones.establecerValorSillas(10); // en $
         arriendoSesiones.establecerValorAmplificacion(20); // en $
         
+        // En el arrayList tipo Arriendo no sabemos con certeza que añade
+        // lo unico que sabemos y debemos tener por seguro es que es un objeto 
+        // de una subclase de la superClase Arriendo.
         listaArriendos.add(arriendoComida);
         listaArriendos.add(arriendoComercial);
         listaArriendos.add(arriendoSesiones);
-        
+        listaArriendos.add(arriendoComida2);
         for (int i = 0; i < listaArriendos.size(); i++) {
             listaArriendos.get(i).establecerArriendoMensual(); // se llama al 
                                                             // métodos abstracto
