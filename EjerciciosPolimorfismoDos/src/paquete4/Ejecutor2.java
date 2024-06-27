@@ -18,9 +18,11 @@ public class Ejecutor2 {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int opc, opc2;
-        String nombre;
-        double cuotaB, iva, agua, luz;
+        String nombre, nombreCentro;
+        double cuotaB, iva, agua, luz, adicional, amplificacion, sillas;
         ArrayList<Arriendo> listaArriendos = new ArrayList<>();
+        System.out.println("Ingrese el nombre del Centro Comercial");
+        nombreCentro = sc.nextLine();
         System.out.println("Ingrese el numero de locales a ingresar: ");
         opc = sc.nextInt();
         for (int i = 0; i < opc; i++) {
@@ -30,8 +32,8 @@ public class Ejecutor2 {
             opc2 = sc.nextInt();
             sc.nextLine();
             switch (opc2) {
-                case 2:
-                    System.out.println("Ingrese nombre de el Local");
+                case 1:
+                    System.out.println("Ingrese nombre de el Arrendatario");
                     nombre = sc.nextLine();
                     System.out.println("Ingrese el valor de la Cuota Base");
                     cuotaB = sc.nextDouble();
@@ -46,40 +48,45 @@ public class Ejecutor2 {
                     arriendoComida.establecerIva(iva); // en porcentaje
                     arriendoComida.establecerValorAgua(agua); // en $
                     arriendoComida.establecerValorLuz(luz); // en $
+                    listaArriendos.add(arriendoComida);
+                    break;
+                case 2:
+                    System.out.println("Ingrese nombre de el Arrendatario");
+                    nombre = sc.nextLine();
+                    System.out.println("Ingrese el valor de la Cuota Base");
+                    cuotaB = sc.nextDouble();
+                    System.out.println("Ingrese el valor Adicional a pagar");
+                    adicional = sc.nextDouble();
+                    ArriendoLocalComercial arriendoComercial
+                            = new ArriendoLocalComercial(nombre, cuotaB);
+                    arriendoComercial.establecerNombreArrendatario(nombre);
+                    arriendoComercial.establecerValorAdicionalFijo(adicional);
+                    listaArriendos.add(arriendoComercial);
+                    break;
+                case 3:
+                    System.out.println("Ingrese nombre de el Arrendatario");
+                    nombre = sc.nextLine();
+                    System.out.println("Ingrese el valor de la Cuota Base");
+                    cuotaB = sc.nextDouble();
+                    System.out.println("Ingrese el costo de Alquilar las sillas");
+                    sillas = sc.nextDouble();
+                    System.out.println("Ingrese el costo de la Amplificacion");
+                    amplificacion = sc.nextDouble();
+                    ArriendoLocalSesiones arriendoSesiones
+                            = new ArriendoLocalSesiones(nombre, cuotaB);
+                    arriendoSesiones.establecerValorAmplificacion(amplificacion);
+                    arriendoSesiones.establecerValorSillas(sillas);
+                    listaArriendos.add(arriendoSesiones);
 
             }
 
         }
-        System.out.println("");
-
-        ArriendoLocalComida arriendoComida = new ArriendoLocalComida(
-                "Christian Shepherd", 300);
-        arriendoComida.establecerIva(10); // en porcentaje
-        arriendoComida.establecerValorAgua(20.2); // en $
-        arriendoComida.establecerValorLuz(40.2); // en $
-
-        ArriendoLocalComercial arriendoComercial = new ArriendoLocalComercial(
-                "Andrew Schroeder", 400);
-        arriendoComercial.establecerValorAdicionalFijo(100); // en $
-
-        ArriendoLocalSesiones arriendoSesiones = new ArriendoLocalSesiones(
-                "Angela Watson", 350);
-        arriendoSesiones.establecerValorSillas(10); // en $
-        arriendoSesiones.establecerValorAmplificacion(20); // en $
-
-        // En el arrayList tipo Arriendo no sabemos con certeza que añade
-        // lo unico que sabemos y debemos tener por seguro es que es un objeto 
-        // de una subclase de la superClase Arriendo.
-        listaArriendos.add(arriendoComida);
-        listaArriendos.add(arriendoComercial);
-        listaArriendos.add(arriendoSesiones);
 
         for (int i = 0; i < listaArriendos.size(); i++) {
             listaArriendos.get(i).establecerArriendoMensual();
         }
 
-        CentroComercial centro = new CentroComercial("La Pradera",
-                listaArriendos);
+        CentroComercial centro = new CentroComercial(nombreCentro,listaArriendos);
         centro.establecerTotalArriendosBaseMensual();
         centro.establecerTotalArriendosFinalMensual();
         System.out.println(centro);
